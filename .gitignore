@@ -11,3 +11,4 @@ backend/data/*.ndjson
 .DS_Store
 coverage/
 .vite/
+docs/CLAUDE.md
