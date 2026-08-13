@@ -7,6 +7,8 @@ import { computeFleetStatusSummary } from "../calculations/fleetCalculations";
 import { useAlertsStore, selectPendingAlerts } from "../stores/alertsStore";
 import { useActiveExecutionSummaries } from "../calculations/executionSelectors";
 import { REGION_LABELS } from "../data/regionCorridors";
+import { SCENARIO_VESSELS, type ScenarioVesselId } from "../data/scenarioVessels";
+import { formatIsoLabel } from "../lib/format";
 import type { FleetVessel } from "../types/fleet";
 import { PageContainer } from "../components/common/PageContainer";
 import { KpiCard } from "../components/common/KpiCard";
@@ -48,12 +50,12 @@ export function DashboardPage() {
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <SectionCard title="우리 선박" description="자사 선대 기준 최근 갱신 선박">
+      <div className="grid grid-cols-[3fr_2fr] gap-4">
+        <SectionCard title="자사 선박" description="자사 선대 기준 최근 갱신 선박">
           {ownRecentMovement.length === 0 ? (
             <EmptyState title="표시할 자사 선박이 없습니다." />
           ) : (
-            <VesselMovementTable vessels={ownRecentMovement} onNavigateToMap={(id) => navigate(`/map?vesselId=${id}`)} />
+            <VesselMovementTable vessels={ownRecentMovement} variant="own" onNavigateToMap={(id) => navigate(`/map?vesselId=${id}`)} />
           )}
         </SectionCard>
 
@@ -61,7 +63,7 @@ export function DashboardPage() {
           {otherRecentMovement.length === 0 ? (
             <EmptyState title="표시할 타사 선박이 없습니다." />
           ) : (
-            <VesselMovementTable vessels={otherRecentMovement} onNavigateToMap={(id) => navigate(`/map?vesselId=${id}`)} />
+            <VesselMovementTable vessels={otherRecentMovement} variant="other" onNavigateToMap={(id) => navigate(`/map?vesselId=${id}`)} />
           )}
         </SectionCard>
       </div>
@@ -127,51 +129,83 @@ export function DashboardPage() {
 
 function VesselMovementTable({
   vessels,
+  variant,
   onNavigateToMap,
 }: {
   vessels: FleetVessel[];
+  variant: "own" | "other";
   onNavigateToMap: (vesselId: string) => void;
 }) {
   return (
     <div className="h-[228px] overflow-y-auto pr-2">
       <table className="w-full table-fixed text-left text-sm">
-        <colgroup>
-          <col className="w-[22%]" />
-          <col className="w-[17%]" />
-          <col className="w-[9%]" />
-          <col className="w-[19%]" />
-          <col className="w-[33%]" />
-        </colgroup>
+        {variant === "own" ? (
+          <colgroup>
+            <col className="w-[14%]" />
+            <col className="w-[18%]" />
+            <col className="w-[26%]" />
+            <col className="w-[9%]" />
+            <col className="w-[15%]" />
+            <col className="w-[18%]" />
+          </colgroup>
+        ) : (
+          <colgroup>
+            <col className="w-[24%]" />
+            <col className="w-[32%]" />
+            <col className="w-[18%]" />
+            <col className="w-[26%]" />
+          </colgroup>
+        )}
         <thead>
           <tr className="sticky top-0 border-b border-gray-100 bg-white text-xs text-gray-400">
-            <th className="pb-2 font-medium">선박명</th>
-            <th className="pb-2 font-medium">권역</th>
-            <th className="pb-2 font-medium">속도</th>
-            <th className="pb-2 font-medium">상태</th>
-            <th className="pb-2 font-medium"></th>
+            <th className="pr-3 pb-2.5 font-medium">선박명</th>
+            {variant === "own" ? (
+              <>
+                <th className="pr-3 pb-2.5 font-medium">목적지항</th>
+                <th className="pr-3 pb-2.5 font-medium">도착 시간</th>
+                <th className="pr-3 pb-2.5 font-medium">속도</th>
+              </>
+            ) : (
+              <th className="pr-3 pb-2.5 font-medium">권역</th>
+            )}
+            <th className="pr-3 pb-2.5 font-medium">상태</th>
+            <th className="pb-2.5 font-medium"></th>
           </tr>
         </thead>
         <tbody>
-          {vessels.map((vessel) => (
-            <tr key={vessel.id} className="border-b border-gray-50 last:border-0">
-              <td className="truncate py-2.5 font-medium text-gray-800">{vessel.displayName ?? vessel.id}</td>
-              <td className="truncate py-2.5 text-gray-600">{REGION_LABELS[vessel.region]}</td>
-              <td className="py-2.5 text-gray-600">{vessel.speedKnots.toFixed(1)}kn</td>
-              <td className="py-2.5">
-                <StatusBadge label={vessel.alertStatus} tone={vessel.alertStatus === "NORMAL" ? "gray" : undefined} />
-              </td>
-              <td className="whitespace-nowrap py-2.5 pl-5 text-left">
-                <button
-                  type="button"
-                  onClick={() => onNavigateToMap(vessel.id)}
-                  className="inline-flex items-center gap-1 text-xs font-medium text-blue-600 hover:underline"
-                >
-                  <MapPin size={12} />
-                  지도 보기
-                </button>
-              </td>
-            </tr>
-          ))}
+          {vessels.map((vessel) => {
+            const scenarioVessel =
+              variant === "own" ? SCENARIO_VESSELS.find((sv) => sv.id === (vessel.id.toUpperCase() as ScenarioVesselId)) : undefined;
+            return (
+              <tr key={vessel.id} className="border-b border-gray-50 last:border-0">
+                <td className="truncate py-3.5 pr-3 font-medium text-gray-800">{vessel.displayName ?? vessel.id}</td>
+                {variant === "own" ? (
+                  <>
+                    <td className="truncate py-3.5 pr-3 text-gray-600">{scenarioVessel?.destinationPortName ?? "-"}</td>
+                    <td className="whitespace-nowrap py-3.5 pr-3 text-gray-600">
+                      {scenarioVessel ? formatIsoLabel(scenarioVessel.originalAssignedEtaIso) : "-"}
+                    </td>
+                    <td className="whitespace-nowrap py-3.5 pr-3 text-gray-600">{vessel.speedKnots.toFixed(1)}kn</td>
+                  </>
+                ) : (
+                  <td className="py-3.5 pr-3 leading-relaxed text-gray-600">{REGION_LABELS[vessel.region]}</td>
+                )}
+                <td className="py-3.5 pr-3">
+                  <StatusBadge label={vessel.alertStatus} tone={vessel.alertStatus === "NORMAL" ? "gray" : undefined} />
+                </td>
+                <td className="whitespace-nowrap py-3.5 text-right">
+                  <button
+                    type="button"
+                    onClick={() => onNavigateToMap(vessel.id)}
+                    className="inline-flex items-center gap-1 text-xs font-medium text-blue-600 hover:underline"
+                  >
+                    <MapPin size={12} />
+                    지도 보기
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
