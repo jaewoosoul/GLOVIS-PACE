@@ -471,7 +471,7 @@ export const VESSELS: Vessel[] = [
     route: ["Hong Kong", "Southampton", "Bremerhaven"],
     currentSpeedKnots: 16.0,
     destinationPort: "Bremerhaven",
-    scheduleBufferHours: 0,
+    scheduleBufferHours: 0.25,
     routeProgressPercent: 0,
   },
 ];
