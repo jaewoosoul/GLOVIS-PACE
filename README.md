@@ -142,6 +142,6 @@ npm run build        # 백엔드 tsc build + 프런트 tsc+vite build
 
 ## 설계 문서
 
-- [`docs/GLOVIS_PACE_프로젝트_이해_현재구현기준.md`](docs/GLOVIS_PACE_프로젝트_이해_현재구현기준.md) — 문제 정의, 핵심 사용자, 판단 카드 설계 의도
+- [`docs/overview.md`](docs/overview.md) — 문제 정의, 핵심 사용자, 판단 카드 설계 의도
 - [`docs/dashboard-plan.md`](docs/dashboard-plan.md) — 현재 화면·컴포넌트·상태·계산 모듈 구조
-- [`docs/GLOVIS_PACE_v7_통합_구현명세_Claude_Code.md`](docs/GLOVIS_PACE_v7_통합_구현명세_Claude_Code.md) — 뉴스/RTA 시나리오·계산 공식·타임라인 상세 스펙
+- [`docs/spec.md`](docs/spec.md) — 뉴스/RTA 시나리오·계산 공식·타임라인 상세 스펙
