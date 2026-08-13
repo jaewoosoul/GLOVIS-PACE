@@ -1,5 +1,5 @@
 /**
- * PORT PACE v7 시나리오 계산 순수함수 — docs/PORT_PACE_v7_통합_구현명세_Claude_Code.md §9를 그대로 구현한다.
+ * GLOVIS PACE v7 시나리오 계산 순수함수 — docs/GLOVIS_PACE_v7_통합_구현명세_Claude_Code.md §9를 그대로 구현한다.
  * 전부 결정론적 순수 함수다. AI는 이 계산에 절대 관여하지 않는다.
  *
  * 연료 공식(calculateDailyFuel)과 항해시간(calculateSailingHours)은 calculations/commonCalculations.ts와

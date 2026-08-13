@@ -14,7 +14,7 @@ const PAGE_META: Record<string, { title: string }> = {
 function resolveMeta(pathname: string) {
   if (PAGE_META[pathname]) return PAGE_META[pathname];
   if (pathname.startsWith("/decisions/")) return { title: "운항 판단 상세" };
-  return { title: "PORT PACE" };
+  return { title: "GLOVIS PACE" };
 }
 
 export function AppShell() {

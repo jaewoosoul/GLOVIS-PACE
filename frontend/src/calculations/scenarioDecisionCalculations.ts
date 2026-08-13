@@ -1,5 +1,5 @@
 /**
- * docs/PORT_PACE_v7_통합_구현명세_Claude_Code.md §8~9 — 선박별 4옵션(현재 속도 유지/소폭 감속/표준 감속/최대 감속)
+ * docs/GLOVIS_PACE_v7_통합_구현명세_Claude_Code.md §8~9 — 선박별 4옵션(현재 속도 유지/소폭 감속/표준 감속/최대 감속)
  * 운항 판단 계산. 순수 함수. AI는 이 계산에 관여하지 않는다.
  */
 import type { ScenarioVessel } from "../data/scenarioVessels";

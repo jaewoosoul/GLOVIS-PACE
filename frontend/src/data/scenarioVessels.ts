@@ -1,5 +1,5 @@
 /**
- * PORT PACE v7 시나리오 자사선 5척 — docs/PORT_PACE_v7_통합_구현명세_Claude_Code.md §4를 그대로 반영한다.
+ * GLOVIS PACE v7 시나리오 자사선 5척 — docs/GLOVIS_PACE_v7_통합_구현명세_Claude_Code.md §4를 그대로 반영한다.
  * data/fleetData.ts의 VESSELS(대시보드·지도 표시용)는 여기 값을 실제 기준으로 삼아 맞춰져 있다 —
  * departureAtIso/originalAssignedEtaIso는 이 파일이, 화면에 보이는 최종 도착항/ETA는 VESSELS가 갖는다.
  *

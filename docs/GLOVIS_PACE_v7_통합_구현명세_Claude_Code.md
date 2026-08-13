@@ -1,8 +1,8 @@
-# PORT PACE v7 — 통합 구현 명세
+# GLOVIS PACE v7 — 통합 구현 명세
 
 > v7 시계열 시나리오(뉴스→RTA 기반 운항 판단)의 계산 공식·시나리오 데이터·NEWS/RTA 처리 원칙을
 > 실제 코드 기준으로 담은 문서다. 문제 정의·핵심 사용자 같은 제품 배경은
-> `docs/PORT_PACE_프로젝트_이해_현재구현기준.md`, 폴더/파일 구조는 `docs/project-structure.md`를 본다.
+> `docs/GLOVIS_PACE_프로젝트_이해_현재구현기준.md`, 폴더/파일 구조는 `docs/project-structure.md`를 본다.
 
 ---
 

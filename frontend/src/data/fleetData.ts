@@ -416,8 +416,8 @@ export const WAITING_SHIPS_NEAR_SINGAPORE: LonLat[] = [
 ];
 
 /**
- * GLOVIS-A~E는 실제 특정 선박의 운항기록을 재현한 것이 아니라, PORT PACE v7 시나리오
- * (docs/PORT_PACE_v7_통합_구현명세_Claude_Code.md, scenarioVessels.ts)의 5척 데모 선대다.
+ * GLOVIS-A~E는 실제 특정 선박의 운항기록을 재현한 것이 아니라, GLOVIS PACE v7 시나리오
+ * (docs/GLOVIS_PACE_v7_통합_구현명세_Claude_Code.md, scenarioVessels.ts)의 5척 데모 선대다.
  * destinationPort는 각 선박의 최종 도착항을 가리킨다 — 사건이 실제로 발생하는 구간 목적항
  * (예: A의 Southampton)은 scenarioVessels.ts의 destinationPortCode를 따로 쓴다. 실시간 속도·ETA·
  * 운항 상태는 여기 정적값이 아니라 scenarioVessels.ts/scenarioVesselStore 기준으로 계산된다

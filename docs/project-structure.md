@@ -1,10 +1,10 @@
-# 프로젝트 구조 (PORT PACE)
+# 프로젝트 구조 (GLOVIS PACE)
 
-이 저장소는 PORT PACE 프로젝트 하나만 담는다.
+이 저장소는 GLOVIS PACE 프로젝트 하나만 담는다.
 
 ```
-Gloivs-ship/
-├─ frontend/    React + Vite + TypeScript — PORT PACE 대시보드/지도/판단/리포트
+GLOVIS-PACE/
+├─ frontend/    React + Vite + TypeScript — GLOVIS PACE 대시보드/지도/판단/리포트
 ├─ backend/     Node.js + TypeScript + Express — Claude(Anthropic) 기반 뉴스/RTA 분석 API
 ├─ docs/        설계·구조 문서
 ├─ package.json 루트 실행 스크립트(npm --prefix 기반, workspaces 아님)

@@ -1,4 +1,4 @@
-# PORT PACE
+# GLOVIS PACE
 
 목적항 파업·태풍·장비고장·항만혼잡 발생 시 자사선 감속/증속 옵션별 연료비·대기시간·CO2·후속일정
 영향을 계산해 운항 담당자의 승인·실행·리포트 작성을 지원하는 운항 의사결정 지원 대시보드다.
@@ -22,11 +22,20 @@ RTA 확정 → 실행 → 리포트까지 전체 흐름을 시연할 수 있다.
   전후 비교 통계)로 내보내는 `/reports`
 - Zustand 기반 상태관리(시뮬레이션 시계/판단 세션/판단 대기열/뉴스/실행 기록/리포트 이력)
 
+## 아키텍처
+
+![GLOVIS PACE 아키텍처](docs/images/architecture.png)
+
+- **Development**: GitHub에 push/PR하면 Vercel(frontend)과 Render(backend)가 각각 자동 빌드·배포한다.
+- **Runtime**: 브라우저(React + Zustand)가 HTTPS REST로 backend(Node.js/Express)를 호출하고,
+  backend는 뉴스 분석 요청(`POST /api/news/analyze`)만 Claude(Anthropic, `claude-haiku-4-5`)에
+  전달해 구조화된 JSON을 받는다. 계산(연료비·CO2·일정 영향)은 항상 프런트엔드가 담당한다.
+
 ## 프로젝트 구조
 
 ```
-Gloivs-ship/
-├─ frontend/   React 19 + Vite + TypeScript + Tailwind v4 — PORT PACE 대시보드/지도/판단/리포트
+GLOVIS-PACE/
+├─ frontend/   React 19 + Vite + TypeScript + Tailwind v4 — GLOVIS PACE 대시보드/지도/판단/리포트
 ├─ backend/    Node.js + TypeScript + Express — Claude 기반 뉴스/RTA 분석 API
 ├─ docs/       설계·구조 문서
 ├─ package.json
@@ -135,8 +144,8 @@ npm run build        # 백엔드 tsc build + 프런트 tsc+vite build
 
 ## 설계 문서
 
-- [`docs/PORT_PACE_프로젝트_이해_현재구현기준.md`](docs/PORT_PACE_프로젝트_이해_현재구현기준.md) — 문제 정의, 핵심 사용자, 판단 카드 설계 의도
+- [`docs/GLOVIS_PACE_프로젝트_이해_현재구현기준.md`](docs/GLOVIS_PACE_프로젝트_이해_현재구현기준.md) — 문제 정의, 핵심 사용자, 판단 카드 설계 의도
 - [`docs/dashboard-plan.md`](docs/dashboard-plan.md) — 현재 화면·컴포넌트·상태·계산 모듈 구조
 - [`docs/project-structure.md`](docs/project-structure.md) — 현재 frontend/backend 폴더 구조
-- [`docs/PORT_PACE_v7_통합_구현명세_Claude_Code.md`](docs/PORT_PACE_v7_통합_구현명세_Claude_Code.md) — 뉴스/RTA 시나리오·계산 공식·타임라인 상세 스펙
+- [`docs/GLOVIS_PACE_v7_통합_구현명세_Claude_Code.md`](docs/GLOVIS_PACE_v7_통합_구현명세_Claude_Code.md) — 뉴스/RTA 시나리오·계산 공식·타임라인 상세 스펙
 - [`docs/Claude_Code_뉴스_RTA_원문_입력.md`](docs/Claude_Code_뉴스_RTA_원문_입력.md) — 데모 시나리오 뉴스/RTA 원문 fixture

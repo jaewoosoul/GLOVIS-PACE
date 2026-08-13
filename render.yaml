@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: port-pace-backend
+    name: glovis-pace-backend
     runtime: node
     rootDir: backend
     plan: starter

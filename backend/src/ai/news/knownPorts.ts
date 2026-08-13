@@ -2,7 +2,7 @@ import type { KnownPort } from "./newsAnalysisSchema.js";
 
 /**
  * Claude가 항만명을 제각각 반환하지 않도록 제공하는 항만 마스터.
- * PORT PACE 프런트엔드(frontend/src/data/fleetData.ts의 MAP_PORTS, data/scenarios.ts)에서
+ * GLOVIS PACE 프런트엔드(frontend/src/data/fleetData.ts의 MAP_PORTS, data/scenarios.ts)에서
  * 이미 사용 중인 5개 항만을 기준으로 한다. UN/LOCODE는 공개된 실제 코드를 사용하고,
  * 터미널은 프로젝트 시나리오(Singapore 파업/Shanghai 임시 선석)에 등장하는 값만 반영했다.
  * 새 항만이 필요하면 이 배열에 추가한다 — Claude가 목록에 없는 항만의 코드를 임의로

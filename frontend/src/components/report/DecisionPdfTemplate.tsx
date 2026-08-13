@@ -44,7 +44,7 @@ function Header({ vesselName, incidentTitle, port, modeLabel, sourceLabel }: { v
     <>
       <div className="flex items-start justify-between border-b-2 border-gray-900 pb-4">
         <div>
-          <p className="text-xs font-semibold tracking-widest text-gray-400">PORT PACE · 선대 관제 시스템</p>
+          <p className="text-xs font-semibold tracking-widest text-gray-400">GLOVIS PACE · 선대 관제 시스템</p>
           <h1 className="mt-1 text-2xl font-extrabold text-gray-900">운항 판단 보고서</h1>
         </div>
         <div className="text-right text-[11px] text-gray-400">
@@ -435,7 +435,7 @@ function PageThree({ record }: { record: CompletedDecisionRecord }) {
       </div>
 
       <div className="absolute bottom-16 left-16 right-16 border-t border-gray-200 pt-3 text-[10px] text-gray-400">
-        본 보고서는 PORT PACE 운항 관제 시스템에서 자동 생성되었습니다. 선대 규모·항로는 공개 자료를 참고했으며, 세부 수치는 기능 시연용
+        본 보고서는 GLOVIS PACE 운항 관제 시스템에서 자동 생성되었습니다. 선대 규모·항로는 공개 자료를 참고했으며, 세부 수치는 기능 시연용
         시뮬레이션 데이터입니다.
       </div>
     </Page>

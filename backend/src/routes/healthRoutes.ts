@@ -5,7 +5,7 @@ export const healthRoutes = Router();
 healthRoutes.get("/health", (_req, res) => {
   res.json({
     ok: true,
-    service: "port-pace-backend",
+    service: "glovis-pace-backend",
     timestamp: new Date().toISOString(),
   });
 });
