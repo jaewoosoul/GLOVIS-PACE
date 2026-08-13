@@ -6,7 +6,7 @@ import { useNewsStore, selectUnviewedNewsCount } from "../../stores/newsStore";
 const NAV_ITEMS = [
   { to: "/dashboard", label: "대시보드", icon: LayoutDashboard },
   { to: "/map", label: "선대 지도", icon: Map },
-  { to: "/news", label: "뉴스", icon: Newspaper },
+  { to: "/news", label: "운항 신호", icon: Newspaper },
   { to: "/decisions", label: "운항 판단", icon: ClipboardList },
   { to: "/reports", label: "리포트", icon: FileBarChart2 },
 ] as const;

@@ -48,7 +48,7 @@ export function NewsPage() {
   return (
     <PageContainer>
       <div className="grid grid-cols-2 gap-4">
-        <SectionCard title="뉴스" description="접수된 언론 뉴스(1차 정보·추정치) 목록 — 제목을 클릭하면 상세 내용을 볼 수 있습니다">
+        <SectionCard title="운항 신호" description="접수된 언론 뉴스(1차 정보·추정치) 목록 — 제목을 클릭하면 상세 내용을 볼 수 있습니다">
           {newsOnlyItems.length === 0 ? (
             <EmptyState
               icon={Search}

@@ -6,7 +6,7 @@ import { SimulationClockBar } from "../components/simulation/SimulationClockBar"
 const PAGE_META: Record<string, { title: string }> = {
   "/dashboard": { title: "대시보드" },
   "/map": { title: "선대 지도" },
-  "/news": { title: "뉴스" },
+  "/news": { title: "운항 신호" },
   "/decisions": { title: "운항 판단" },
   "/reports": { title: "리포트" },
 };
