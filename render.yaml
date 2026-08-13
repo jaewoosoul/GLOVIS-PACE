@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: port-pace-backend
+    runtime: node
+    rootDir: backend
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: FRONTEND_ORIGIN
+        sync: false
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: ANTHROPIC_MODEL
+        value: claude-haiku-4-5
+      - key: ANTHROPIC_TIMEOUT_MS
+        value: "12000"
