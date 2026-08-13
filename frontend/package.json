@@ -1,0 +1,47 @@
+{
+  "name": "port-pace-frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "typecheck": "tsc -b",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "d3-geo": "^3.1.1",
+    "d3-selection": "^3.0.0",
+    "d3-zoom": "^3.0.0",
+    "html2canvas-pro": "^2.3.3",
+    "jspdf": "^4.2.1",
+    "lucide-react": "^1.27.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-router-dom": "^7.18.2",
+    "topojson-client": "^3.1.0",
+    "zustand": "^5.0.14"
+  },
+  "devDependencies": {
+    "@types/d3-geo": "^3.1.0",
+    "@types/d3-selection": "^3.0.11",
+    "@types/d3-transition": "^3.0.9",
+    "@types/d3-zoom": "^3.0.8",
+    "@types/geojson": "^7946.0.16",
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@types/topojson-client": "^3.1.5",
+    "@vitejs/plugin-react": "^6.0.3",
+    "autoprefixer": "^10.5.4",
+    "oxlint": "^1.71.0",
+    "postcss": "^8.5.24",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.1",
+    "vitest": "^4.1.10"
+  }
+}

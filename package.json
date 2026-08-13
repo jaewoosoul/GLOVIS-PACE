@@ -1,0 +1,17 @@
+{
+  "name": "port-pace",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "concurrently \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "npm --prefix backend run dev",
+    "build": "npm --prefix backend run build && npm --prefix frontend run build",
+    "typecheck": "npm --prefix backend run typecheck && npm --prefix frontend run typecheck",
+    "lint": "npm --prefix backend run lint && npm --prefix frontend run lint",
+    "test": "npm --prefix backend run test && npm --prefix frontend run test"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
