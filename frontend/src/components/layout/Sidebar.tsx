@@ -18,10 +18,10 @@ export function Sidebar() {
   return (
     <aside className="flex w-[240px] shrink-0 flex-col bg-[#0b1a2e] text-slate-200 print:hidden">
       <div className="flex items-center -ml-4 -mt-2">
-        <img src="/glovis-pace-logo.png" alt="Glovis PACE" className="h-24 w-auto object-contain" />
+        <img src="/glovis-pace-logo.png" alt="Glovis PACE" className="h-28 w-auto object-contain" />
       </div>
 
-      <nav className="mt-2 flex-1 space-y-0.5 px-3">
+      <nav className="mt-4 flex-1 space-y-0.5 px-3">
         {NAV_ITEMS.map(({ to, label, icon: Icon }) => {
           const badgeCount = to === "/decisions" ? pendingDecisionCount : to === "/news" ? unviewedNewsCount : 0;
           return (
