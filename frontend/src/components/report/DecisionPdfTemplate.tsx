@@ -31,28 +31,28 @@ function Field({ label, value, valueClassName = "text-gray-900" }: { label: stri
 function OptionTable({ caption, options }: { caption: string; options: ReportOptionRow[] }) {
   return (
     <>
-      <p className="mt-2 text-[10px] text-gray-400">{caption}</p>
-      <table className="mt-1 w-full text-[11px]">
+      <p className="mt-1.5 text-[10px] text-gray-400">{caption}</p>
+      <table className="mt-0.5 w-full text-[11px]">
         <thead>
           <tr className="border-b border-gray-300 text-gray-400">
-            <th className="py-1 text-left font-medium">옵션</th>
-            <th className="py-1 text-right font-medium">속도</th>
-            <th className="py-1 text-right font-medium">대기</th>
-            <th className="py-1 text-right font-medium">접안 초과 시간</th>
-            <th className="py-1 text-right font-medium">연료 절감</th>
+            <th className="py-0.5 text-left font-medium">옵션</th>
+            <th className="py-0.5 text-right font-medium">속도</th>
+            <th className="py-0.5 text-right font-medium">대기</th>
+            <th className="py-0.5 text-right font-medium">접안 초과 시간</th>
+            <th className="py-0.5 text-right font-medium">연료 절감</th>
           </tr>
         </thead>
         <tbody>
           {options.map((o) => (
             <tr key={o.kind} className={`border-b border-gray-100 ${o.isSelected ? "bg-blue-50 font-semibold" : ""}`}>
-              <td className="py-1.5 text-gray-700">
+              <td className="py-1 text-gray-700">
                 {o.label}
                 {o.isSelected ? " ✓" : ""}
               </td>
-              <td className="py-1.5 text-right text-gray-800">{formatKnots(o.speedKn)}</td>
-              <td className="py-1.5 text-right text-gray-800">{o.waitHours.toFixed(1)}h</td>
-              <td className="py-1.5 text-right text-gray-800">{o.downstreamDelayHours > 0.5 ? `+${o.downstreamDelayHours.toFixed(1)}h` : "0h"}</td>
-              <td className="py-1.5 text-right text-emerald-700">{o.fuelSavedTon > 0 ? `${o.fuelSavedTon.toFixed(1)}t` : "-"}</td>
+              <td className="py-1 text-right text-gray-800">{formatKnots(o.speedKn)}</td>
+              <td className="py-1 text-right text-gray-800">{o.waitHours.toFixed(1)}h</td>
+              <td className="py-1 text-right text-gray-800">{o.downstreamDelayHours > 0.5 ? `+${o.downstreamDelayHours.toFixed(1)}h` : "0h"}</td>
+              <td className="py-1 text-right text-emerald-700">{o.fuelSavedTon > 0 ? `${o.fuelSavedTon.toFixed(1)}t` : "-"}</td>
             </tr>
           ))}
         </tbody>
@@ -240,11 +240,11 @@ function PageTwo({ record }: { record: CompletedDecisionRecord }) {
         sourceLabel={SOURCE_LABEL[record.source]}
       />
 
-      <div className="mt-6">
-        <h3 className="mb-2 text-xs font-bold uppercase tracking-wide text-gray-400">1. 계산식 상세 — {record.optionLabel}</h3>
-        <div className="rounded-md border border-gray-200 p-3">
+      <div className="mt-4">
+        <h3 className="mb-1.5 text-xs font-bold uppercase tracking-wide text-gray-400">1. 계산식 상세 — {record.optionLabel}</h3>
+        <div className="rounded-md border border-gray-200 p-2.5">
           <p className="font-mono text-[11px] text-gray-500">V_필요 = D ÷ (D ÷ V_기준 + T_증분) &nbsp;·&nbsp; V_필요 ≥ V_최소</p>
-          <div className="mt-1.5 rounded bg-gray-50 px-2 py-1.5 font-mono text-[10.5px] leading-[1.6] text-gray-600">
+          <div className="mt-1 rounded bg-gray-50 px-2 py-1 font-mono text-[10.5px] leading-[1.4] text-gray-600">
             <p>
               = {calc.remainingDistanceNm.toLocaleString()}nm ÷ ({calc.remainingDistanceNm.toLocaleString()}nm ÷ {calc.baseSpeedKn.toFixed(1)}kn +{" "}
               {calc.additionalDelayHours.toFixed(1)}h)
@@ -257,14 +257,14 @@ function PageTwo({ record }: { record: CompletedDecisionRecord }) {
               = {calc.requiredSpeedKnRaw.toFixed(2)}kn{clampedToMin ? ` → 감속 하한(${calc.minSpeedKn.toFixed(1)}kn) 미만이라 하한 적용` : ""}
             </p>
           </div>
-          <div className="mt-2 grid grid-cols-2 gap-x-6">
+          <div className="mt-1.5 grid grid-cols-2 gap-x-6">
             <Field label="잔여거리 (D)" value={`${calc.remainingDistanceNm.toLocaleString()} nm`} />
             <Field label="기준 속도 (V_기준)" value={formatKnots(calc.baseSpeedKn)} />
             <Field label="감속 하한 (V_최소)" value={formatKnots(calc.minSpeedKn)} />
             <Field label="감속만으로 흡수 가능한 최대 지연" value={formatHoursKo(calc.maxAbsorbableDelayHours, 1)} />
           </div>
-          <p className="mt-3 font-mono text-[11px] text-gray-500">기존 도착 시각 + D ÷ V_선택 = 예상 도착</p>
-          <div className="mt-2 grid grid-cols-2 gap-x-6">
+          <p className="mt-2 font-mono text-[11px] text-gray-500">기존 도착 시각 + D ÷ V_선택 = 예상 도착</p>
+          <div className="mt-1.5 grid grid-cols-2 gap-x-6">
             <Field label="기존 도착 시각" value={formatDateTime(calc.departureAtIso)} />
             <Field label="서비스 가용 시각" value={formatDateTime(arrivalPlusBufferIso)} />
             <Field label="예상 도착" value={formatDateTime(calc.candidateArrivalIso)} />
@@ -283,24 +283,17 @@ function PageTwo({ record }: { record: CompletedDecisionRecord }) {
         />
       </div>
 
-      <div className="mt-5">
-        <h3 className="mb-2 text-xs font-bold uppercase tracking-wide text-gray-400">
+      <div className="mt-3">
+        <h3 className="mb-1.5 text-xs font-bold uppercase tracking-wide text-gray-400">
           2. 경제적 효과 상세 — 뉴스 전 속도 대비 RTA 확정 후 속도
         </h3>
-        <div className="rounded-md border border-gray-200 p-3">
+        <div className="rounded-md border border-gray-200 p-2.5">
           <p className="font-mono text-[11px] text-gray-500">
-            일일 연료 = 0.1727×V² − 0.217×V &nbsp;·&nbsp; 연료비 = (항해 연료 + 정박 연료) × 단가 &nbsp;·&nbsp; CO₂ = 절감량 × 배출계수
+            연료비 = (항해 연료 + 정박 연료) × 단가 &nbsp;·&nbsp; CO₂ = 절감량 × 배출계수
           </p>
-          <div className="mt-1.5 rounded bg-gray-50 px-2 py-1.5 font-mono text-[10.5px] leading-[1.6] text-gray-600">
-            <p>
-              일일 연료(RTA 후 {record.targetSpeedKnots.toFixed(1)}kn) = 0.1727×{record.targetSpeedKnots.toFixed(1)}² − 0.217×
-              {record.targetSpeedKnots.toFixed(1)} = {selectedDailyFuel.toFixed(2)}t/day
-            </p>
+          <div className="mt-1 rounded bg-gray-50 px-2 py-1 font-mono text-[10.5px] leading-[1.4] text-gray-600">
             <p>
               항해 연료 = {selectedDailyFuel.toFixed(2)}t/day × ({calc.sailingHours.toFixed(1)}h ÷ 24) = {selectedSailingFuel.toFixed(1)}t
-            </p>
-            <p>
-              RTA 확정 후 총 연료 = {selectedSailingFuel.toFixed(1)}t + {selectedAnchorageFuel.toFixed(1)}t = {selectedTotalFuel.toFixed(1)}t
             </p>
             <p>
               연료 절감량 = 뉴스 전 속도({baselineTotalFuel.toFixed(1)}t) − RTA 확정 후({selectedTotalFuel.toFixed(1)}t) ={" "}
@@ -313,7 +306,7 @@ function PageTwo({ record }: { record: CompletedDecisionRecord }) {
               CO₂ 절감 = {record.fuelSavedTons.toFixed(1)}t × {calc.co2FactorTonPerFuelTon} = {record.co2AvoidedTons.toFixed(1)}t
             </p>
           </div>
-          <div className="mt-3 flex items-baseline justify-between rounded-md bg-emerald-50 px-3 py-2">
+          <div className="mt-2 flex items-baseline justify-between rounded-md bg-emerald-50 px-3 py-1.5">
             <span className="text-xs font-semibold text-emerald-800">{saved ? "연료 절감액" : "총 추가 비용"}</span>
             <span className={`text-xl font-extrabold ${saved ? "text-emerald-700" : "text-red-600"}`}>{formatUsd(record.netSavingsUsd)}</span>
           </div>
