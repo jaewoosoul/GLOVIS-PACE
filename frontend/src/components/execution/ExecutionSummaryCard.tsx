@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { CheckCircle2, Circle } from "lucide-react";
 import type { ExecutionSummary } from "../../types/decision";
 import { Badge } from "../common/Badge";
 import { formatKnots } from "../../lib/format";
@@ -59,11 +58,6 @@ export function ExecutionSummaryCard({ summary, onRevoke }: { summary: Execution
         </div>
       </dl>
 
-      <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
-        <ChecklistItem label="선장 확인" done={summary.captainAcknowledged} />
-        <ChecklistItem label="실제 속도 반영" done={summary.actualSpeedApplied} />
-      </div>
-
       <div className="mt-3 flex items-center justify-between gap-2 border-t border-gray-100 pt-2.5">
         <div className="text-xs text-gray-400">
           {revokeExpired ? "철회 가능 시간 만료" : `철회 가능 시간 ${revokeLabel}`}
@@ -102,14 +96,5 @@ function StageBadge({ stageLabel }: { stageLabel: ExecutionSummary["stageLabel"]
     <Badge tone={tone}>
       {stageLabel}
     </Badge>
-  );
-}
-
-function ChecklistItem({ label, done }: { label: string; done: boolean }) {
-  return (
-    <span className="flex items-center gap-1">
-      {done ? <CheckCircle2 size={14} className="text-emerald-600" /> : <Circle size={14} className="text-gray-300" />}
-      <span className={done ? "text-gray-700" : "text-gray-400"}>{label}</span>
-    </span>
   );
 }
