@@ -44,7 +44,7 @@ GLOVIS 선박(A~E)의 위치는 `frontend/src/data/scenarioVessels.ts`의 실제
 3. **운항 판단 목록** (`/decisions`) — 실제로 판단이 필요한 사건만 나열(대기열이 비면 빈 상태 문구).
    승인된 판단의 실행 진행 상태(다음 실행 단계 클릭)도 여기서 함께 다룬다 — 별도 `/executions`
    페이지는 없고 `/executions`는 `/decisions`로 리다이렉트된다.
-4. **선대 지도** (`/map`) — 전체화면 지도(D3 기반). 97척 시뮬레이션 선대를 마커로 표시하고, GLOVIS
+4. **선대 지도** (`/map`) — 전체화면 지도(D3 기반). 8척 시뮬레이션 선대를 마커로 표시하고, GLOVIS
    A~E는 시뮬레이션 시계에 따라 실제로 이동한다("다음 이벤트" 클릭마다 갱신).
 5. **뉴스** (`/news`) — 접수된 뉴스와 AI 처리 상태(백엔드 미연동 시 빈 상태만 표시, 하드코딩 없음).
 6. **리포트** (`/reports`) — 완료(COMPLETED)된 판단을 모아 보여주고, 개별 판단을 3페이지 PDF로
@@ -72,7 +72,7 @@ frontend/src/
 │  ├─ simulation/ SimulationClockBar
 │  └─ common/     Badge, StatusBadge, KpiCard, SectionCard, EmptyState, RelativeTime, Modal, Card, PageContainer
 ├─ calculations/  계산 엔진(§5)
-├─ data/          97척 선대, GLOVIS A~E 실제 스케줄, 시뮬레이션 이벤트
+├─ data/          8척 선대, GLOVIS A~E 실제 스케줄, 시뮬레이션 이벤트
 ├─ stores/        simulationStore, decisionStore, incidentStore, executionRecordsStore,
 │                 scenarioVesselStore, workflowStore, alertsStore, newsStore, reportStore
 ├─ types/         fleet.ts, signal.ts, decision.ts, scenarioDecision.ts, newsAnalysis.ts, rtaAnalysis.ts, report.ts
@@ -125,7 +125,7 @@ calculations/
 
 ## 7. 데이터 (`frontend/src/data/`)
 
-- `fleetData.ts`: 상세 시나리오 선박 3척(DEMO_DETAIL) + 97척 COMBINED_FLEET(SIMULATED_FLEET).
+- `fleetData.ts`: GLOVIS 상세 시나리오 선박 5척(DEMO_DETAIL, COMBINED_FLEET) + 배경 시뮬레이션 선박 8척(OTHER_FLEET, SIMULATED_FLEET).
 - `scenarioVessels.ts`: GLOVIS A~E의 실제 운항 스케줄(출항 시각, 원래 배정 ETA, 잔여거리, 기준/최소
   속도, 목적항)과 이를 이용한 지도 진행률 계산 — 실제 사건 판단 엔진(`scenarioDecisionCalculations.ts`)
   및 지도 애니메이션이 공유하는 유일한 진실 소스.
