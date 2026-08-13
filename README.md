@@ -46,3 +46,11 @@ npm run dev:backend
 ## 작업 지침
 
 - [`docs/CLAUDE.md`](docs/CLAUDE.md) — 단계별 재구성 계획 및 작업 원칙
+
+## 설계 문서
+
+- [`docs/PORT_PACE_프로젝트_이해_현재구현기준.md`](docs/PORT_PACE_프로젝트_이해_현재구현기준.md) — 문제 정의, 핵심 사용자, 판단 카드 설계 의도
+- [`docs/dashboard-plan.md`](docs/dashboard-plan.md) — 화면·컴포넌트·상태·계산 모듈 구조
+- [`docs/project-structure.md`](docs/project-structure.md) — frontend/backend 폴더 구조
+- [`docs/PORT_PACE_v7_통합_구현명세_Claude_Code.md`](docs/PORT_PACE_v7_통합_구현명세_Claude_Code.md) — 뉴스/RTA 시나리오·계산 공식·타임라인 상세 스펙
+- [`docs/Claude_Code_뉴스_RTA_원문_입력.md`](docs/Claude_Code_뉴스_RTA_원문_입력.md) — 데모 시나리오 뉴스/RTA 원문 fixture
