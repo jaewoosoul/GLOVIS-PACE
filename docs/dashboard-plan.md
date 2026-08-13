@@ -143,4 +143,4 @@ calculations/
 - `components/report/DecisionPdfTemplate.tsx`가 3페이지 레이아웃(사건·계산식·통계)을 그리고,
   `lib/pdfExport.ts`가 `html2canvas-pro` + `jsPDF`로 화면 캡처 → A4 페이지 분할 PDF를 생성한다.
 
-설계와 구현이 달라지는 경우 본 문서와 `docs/project-structure.md`를 함께 갱신한다.
+설계와 구현이 달라지는 경우 본 문서를 함께 갱신한다.
