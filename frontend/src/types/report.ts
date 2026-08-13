@@ -47,28 +47,34 @@ export interface ReportCalculationDetail {
   /** 감속 하한(minSpeedKn) clamp 전, 공식으로 계산된 필요 속도 원값(kn). */
   requiredSpeedKnRaw: number;
   maxAbsorbableDelayHours: number;
-  calculationAtIso: string;
-  berthAvailableAtIso: string;
   candidateArrivalIso: string;
   berthingAtIso: string;
   /** 사건 발생 전 원래 배정돼 있던 접안 예정 시각(scenarioVessel.originalAssignedEtaIso) — "원래 도착 vs 실제 도착" 비교용. */
   originalArrivalAtIso: string;
+  /** 이 항차의 최초 출항 시각(scenarioVessel.departureAtIso). */
+  departureAtIso: string;
+  /** 이 항차 전체(route 배열 끝까지)의 최종 도착 시각(scenarioVessel.finalArrivalAtIso) — 사건 발생항(경유지)이 최종 목적지가 아닐 때를 위한 값. */
+  finalArrivalAtIso: string;
   waitHours: number;
   sailingHours: number;
   fuelPriceUsdPerTon: number;
   anchorageFuelTonPerDay: number;
   co2FactorTonPerFuelTon: number;
-  /** 2페이지 하단 미니 비교표 — 현재 속도 유지/필요 속도/감속 하한 3옵션. */
-  allOptions: Array<{
-    kind: string;
-    label: string;
-    speedKn: number;
-    waitHours: number;
-    downstreamDelayHours: number;
-    fuelSavedTon: number;
-    fuelSavedUsd: number;
-    isSelected: boolean;
-  }>;
+  /** 2페이지 하단 미니 비교표 — RTA 확정 시점에 검토한 옵션(현재 속도 유지/필요 속도/감속 하한). */
+  allOptions: ReportOptionRow[];
+  /** 뉴스 접수(1차) 시점에 검토한 옵션 — RTA 도착 전 잠정 판단 때 계산된 옵션 목록. 없으면(레거시) 생략. */
+  provisionalOptions?: ReportOptionRow[];
+}
+
+export interface ReportOptionRow {
+  kind: string;
+  label: string;
+  speedKn: number;
+  waitHours: number;
+  downstreamDelayHours: number;
+  fuelSavedTon: number;
+  fuelSavedUsd: number;
+  isSelected: boolean;
 }
 
 /** 3페이지 — "판단 없이 그대로(현재 속도 유지)" 대비 실제 선택안 비교 1행. */

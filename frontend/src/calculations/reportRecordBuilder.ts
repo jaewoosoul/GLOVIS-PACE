@@ -46,6 +46,8 @@ function buildIncidentDetailFields(input: {
   selectedSpeedKn: number;
   /** calc를 만들 때 calculateVesselDecision에 실제로 넘긴 증분 지연 — 없으면(레거시) null. */
   additionalDelayHours: number | null;
+  /** 뉴스 접수(1차) 시점에 확정했던 속도(VesselConfirmed.priorSpeedKn) — 1차 옵션 표의 선택 표시용. */
+  provisionalSelectedSpeedKn?: number;
 }): {
   newsArticle?: ReportNewsArticle;
   aiJudgment?: ReportAiJudgment;
@@ -74,6 +76,20 @@ function buildIncidentDetailFields(input: {
     : undefined;
 
   const scenarioVessel = SCENARIO_VESSELS.find((v) => v.id === input.vesselId);
+  const provisionalCalc = input.incident.provisionalByVessel.find((p) => p.vesselId === input.vesselId)?.calculation;
+  const provisionalOptions = provisionalCalc
+    ? provisionalCalc.options.map((o) => ({
+        kind: o.kind,
+        label: o.label,
+        speedKn: o.speedKn,
+        waitHours: o.waitHours,
+        downstreamDelayHours: o.downstreamDelayHours,
+        fuelSavedTon: o.fuelSavedTon,
+        fuelSavedUsd: o.fuelSavedUsd,
+        isSelected:
+          input.provisionalSelectedSpeedKn !== undefined && Math.abs(o.speedKn - input.provisionalSelectedSpeedKn) < 0.01,
+      }))
+    : undefined;
   const maintainOption = input.calc?.options.find((o) => o.kind === "MAINTAIN");
   const requiredOption = input.calc?.options.find((o) => o.kind === "REQUIRED");
   const selectedOption = input.calc?.options.find((o) => Math.abs(o.speedKn - input.selectedSpeedKn) < 0.01) ?? maintainOption;
@@ -101,11 +117,11 @@ function buildIncidentDetailFields(input: {
     additionalDelayHours: input.additionalDelayHours,
     requiredSpeedKnRaw,
     maxAbsorbableDelayHours: input.calc.maxAbsorbableDelayHours,
-    calculationAtIso: input.calculationAtIso,
-    berthAvailableAtIso,
     candidateArrivalIso: selectedOption.candidateArrivalIso,
     berthingAtIso: selectedOption.berthingAtIso,
     originalArrivalAtIso: scenarioVessel.originalAssignedEtaIso,
+    departureAtIso: scenarioVessel.departureAtIso,
+    finalArrivalAtIso: scenarioVessel.finalArrivalAtIso,
     waitHours: selectedOption.waitHours,
     sailingHours: sailingHoursFor(selectedOption.speedKn),
     fuelPriceUsdPerTon: V7_FUEL_PRICE_USD_PER_TON,
@@ -121,6 +137,7 @@ function buildIncidentDetailFields(input: {
       fuelSavedUsd: o.fuelSavedUsd,
       isSelected: o === selectedOption,
     })),
+    provisionalOptions,
   };
 
   const pointFor = (option: { speedKn: number; waitHours: number }, label: string, berthingAtIso: string): ReportComparisonPoint => {
@@ -173,10 +190,14 @@ export function buildIncidentCompletedRecord(
   // 가상시계로 남겨야 타임라인이 시간 역순으로 보이지 않는다.
   const simNowIso = new Date(useSimulationStore.getState().currentSimTime).toISOString();
   const timeline: ReportTimelineEntry[] = [];
-  if (incident.newsReceivedAtIso) timeline.push({ label: "뉴스 접수", atIso: incident.newsReceivedAtIso });
-  if (incident.rtaReceivedAtIso) timeline.push({ label: "RTA 확정 통보", atIso: incident.rtaReceivedAtIso });
-  timeline.push({ label: "속도 재확정", atIso: simNowIso });
-  timeline.push({ label: "완료", atIso: simNowIso });
+  if (incident.newsReceivedAtIso) {
+    timeline.push({ label: "뉴스 접수", atIso: incident.newsReceivedAtIso });
+    timeline.push({ label: "속도 1차 확정", atIso: new Date(new Date(incident.newsReceivedAtIso).getTime() + 2 * 60_000).toISOString() });
+  }
+  if (incident.rtaReceivedAtIso) {
+    timeline.push({ label: "RTA 확정 통보", atIso: incident.rtaReceivedAtIso });
+    timeline.push({ label: "속도 최종 확정", atIso: new Date(new Date(incident.rtaReceivedAtIso).getTime() + 3 * 60_000).toISOString() });
+  }
 
   const recalculated = vessel.revision;
   const targetSpeedKnots = vessel.priorSpeedKn;
@@ -189,6 +210,7 @@ export function buildIncidentCompletedRecord(
     calculationAtIso: incident.rtaReceivedAtIso,
     selectedSpeedKn: targetSpeedKnots,
     additionalDelayHours: vessel.additionalDelayHoursApplied,
+    provisionalSelectedSpeedKn: vessel.priorSpeedKn,
   });
 
   // 리포트 전체(1p 절감 요약, 2p 계산식, 3p 전후 비교)가 "뉴스 전 속도 vs RTA 확정 후 최종 속도"
