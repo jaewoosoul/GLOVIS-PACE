@@ -1071,10 +1071,6 @@ export function FleetMap({
                     </div>
                   )}
                   <div className="flex justify-between">
-                    <dt className="text-gray-500">목적항</dt>
-                    <dd className="font-semibold text-gray-900 text-right max-w-[120px] truncate">{activeDetail ? activeDetail.destinationPort : REGION_LABELS[activeVessel.region]}</dd>
-                  </div>
-                  <div className="flex justify-between">
                     <dt className="text-gray-500">운항 상태</dt>
                     <dd className="font-semibold text-gray-900">
                       {activeDetail ? (resolveLiveStatusLabel(activeDetail.id, scenarioVesselRuntime) ?? "-") : activeVessel.alertStatus}
@@ -1109,7 +1105,7 @@ export function FleetMap({
                     <>
                       <div className="flex flex-col gap-0.5">
                         <dt className="text-gray-500">현재 항차</dt>
-                        <dd className="font-semibold text-gray-900 truncate">{activeDetail.route.join(" → ")}</dd>
+                        <dd className="line-clamp-2 font-semibold text-gray-900">{activeDetail.route.join(" → ")}</dd>
                       </div>
                       <div className="flex justify-between">
                         <dt className="text-gray-500">일정 여유</dt>
@@ -1131,15 +1127,11 @@ export function FleetMap({
                       <dd className="font-semibold text-gray-900">{scenarioDetail.baseSpeedKn.toFixed(1)} kn</dd>
                     </div>
                     <div className="flex justify-between">
-                      <dt className="text-gray-500">감속 하한</dt>
+                      <dt className="text-gray-500">최저 감속 하한</dt>
                       <dd className="font-semibold text-gray-900">{scenarioDetail.minSpeedKn.toFixed(1)} kn</dd>
                     </div>
-                    <div className="flex justify-between">
-                      <dt className="text-gray-500">출항 시각</dt>
-                      <dd className="font-semibold text-gray-900">{scenarioDetail.departureLabel}</dd>
-                    </div>
-                    <div className="flex justify-between">
-                      <dt className="text-gray-500">최근 속도 확정</dt>
+                    <div className="flex flex-col gap-0.5">
+                      <dt className="text-gray-500">최근 속도 변경 시각</dt>
                       <dd className="font-semibold text-gray-900">{scenarioDetail.latestSpeedChangeLabel ?? "이력 없음"}</dd>
                     </div>
                   </dl>
